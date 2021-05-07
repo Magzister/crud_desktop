@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ObjectList(object):
     def setupUi(self, ObjectList):
         ObjectList.setObjectName("ObjectList")
-        ObjectList.resize(938, 595)
+        ObjectList.resize(520, 595)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(ObjectList)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
@@ -51,13 +51,6 @@ class Ui_ObjectList(object):
         self.object_list_widget.setFont(font)
         self.object_list_widget.setObjectName("object_list_widget")
         self.horizontalLayout_6.addWidget(self.object_list_widget)
-        self.camera_list_widget = QtWidgets.QListWidget(ObjectList)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(16)
-        self.camera_list_widget.setFont(font)
-        self.camera_list_widget.setObjectName("camera_list_widget")
-        self.horizontalLayout_6.addWidget(self.camera_list_widget)
         self.verticalLayout_4.addLayout(self.horizontalLayout_6)
 
         self.retranslateUi(ObjectList)

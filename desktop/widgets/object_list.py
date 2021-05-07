@@ -1,9 +1,12 @@
 from pyuic5_files.object_list import Ui_ObjectList
 from PyQt5 import QtWidgets as qtw
 from models.object_list_model import ObjectList
+from models.device_process import DeviceProcess
 
 import requests
-import device
+import threading
+import cv2
+
 
 GET_OBJECT_LIST_URL = 'http://localhost:8000/objects/'
 GET_OBJECT_DETAIL_URL = 'http://localhost:8000/objects/{id}'
@@ -17,9 +20,21 @@ class ObjectsWindow(qtw.QWidget):
         self.ui.setupUi(self)
         self.ui.object_list_widget.itemDoubleClicked.connect(self.object_double_clicked)
         self.ui.update_btn.clicked.connect(self.update_object_list)
+        self.ui.link_btn.clicked.connect(self.link_object)
 
         self.object_list = ObjectList()
         self.update_object_list()
+
+    def link_object(self):
+        object_ind = self.ui.object_list_widget.selectedIndexes()[0].row()
+        element = self.object_list.get_list_item(object_ind)
+        id = element['id']
+        self.create_process(id)
+
+    def create_process(self, object_id):
+        device_process = DeviceProcess(object_id)
+        t = threading.Thread(target=device_process.run)
+        t.start()
 
     def update_object_list(self):
         self.ui.object_list_widget.clear()
@@ -29,9 +44,6 @@ class ObjectsWindow(qtw.QWidget):
             self.object_list.set_object_list(object_list)
             for obj in object_list:
                 self.ui.object_list_widget.addItem(obj['name'])
-
-    def update_camera_list(self):
-        pass
 
     def object_double_clicked(self, item):
         text = 'id: {id}\n' + 'name: {name}\n' + 'description: {description}'
