@@ -21,6 +21,7 @@ class ObjectsWindow(qtw.QWidget):
         self.ui.object_list_widget.itemDoubleClicked.connect(self.object_double_clicked)
         self.ui.update_btn.clicked.connect(self.update_object_list)
         self.ui.link_btn.clicked.connect(self.link_object)
+        self.device_list = [cv2.VideoCapture(0)]
 
         self.object_list = ObjectList()
         self.update_object_list()
@@ -29,10 +30,11 @@ class ObjectsWindow(qtw.QWidget):
         object_ind = self.ui.object_list_widget.selectedIndexes()[0].row()
         element = self.object_list.get_list_item(object_ind)
         id = element['id']
-        self.create_process(id)
+        name = element['name']
+        self.create_process(id, name)
 
-    def create_process(self, object_id):
-        device_process = DeviceProcess(object_id)
+    def create_process(self, object_id, object_name):
+        device_process = DeviceProcess(object_id, object_name, self.device_list[0])
         t = threading.Thread(target=device_process.run)
         t.start()
 
