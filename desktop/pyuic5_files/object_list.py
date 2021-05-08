@@ -17,6 +17,18 @@ class Ui_ObjectList(object):
         ObjectList.resize(520, 595)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(ObjectList)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.username_label = QtWidgets.QLabel(ObjectList)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.username_label.setFont(font)
+        self.username_label.setObjectName("username_label")
+        self.horizontalLayout.addWidget(self.username_label)
+        self.verticalLayout_4.addLayout(self.horizontalLayout)
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
@@ -59,6 +71,7 @@ class Ui_ObjectList(object):
     def retranslateUi(self, ObjectList):
         _translate = QtCore.QCoreApplication.translate
         ObjectList.setWindowTitle(_translate("ObjectList", "Objects"))
+        self.username_label.setText(_translate("ObjectList", "123"))
         self.update_btn.setText(_translate("ObjectList", "Update"))
         self.link_btn.setText(_translate("ObjectList", "Link"))
 

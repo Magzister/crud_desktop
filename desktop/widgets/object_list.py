@@ -1,5 +1,6 @@
 from pyuic5_files.object_list import Ui_ObjectList
 from PyQt5 import QtWidgets as qtw
+from PyQt5 import QtCore as qtc
 from models.object_list_model import ObjectList
 from models.device_process import DeviceProcess
 
@@ -21,10 +22,14 @@ class ObjectsWindow(qtw.QWidget):
         self.ui.object_list_widget.itemDoubleClicked.connect(self.object_double_clicked)
         self.ui.update_btn.clicked.connect(self.update_object_list)
         self.ui.link_btn.clicked.connect(self.link_object)
-        self.device_list = [cv2.VideoCapture(0)]
+
+        self.username = ''
+        self.access_token = ''
+        self.refresh_token = ''
+
+        self.device_list = [cv2.VideoCapture(0, cv2.CAP_DSHOW)]
 
         self.object_list = ObjectList()
-        self.update_object_list()
 
     def link_object(self):
         object_ind = self.ui.object_list_widget.selectedIndexes()[0].row()
@@ -40,8 +45,9 @@ class ObjectsWindow(qtw.QWidget):
 
     def update_object_list(self):
         self.ui.object_list_widget.clear()
-        response = requests.get(GET_OBJECT_LIST_URL)
-        if response:
+        headers = {'Authorization': f'Bearer {self.access_token}'}
+        response = requests.get(GET_OBJECT_LIST_URL, headers=headers)
+        if response.status_code == 200:
             object_list = response.json()
             self.object_list.set_object_list(object_list)
             for obj in object_list:
@@ -60,6 +66,14 @@ class ObjectsWindow(qtw.QWidget):
                 description=element['description']
             )
         )
+
+    @qtc.pyqtSlot(str, str, str)
+    def login_message(self, username, access_token, refresh_token):
+        self.username = username
+        self.access_token = access_token
+        self.refresh_token = refresh_token
+        self.ui.username_label.setText(self.username)
+        # self.update_object_list()
 
 
 if __name__ == '__main__':
