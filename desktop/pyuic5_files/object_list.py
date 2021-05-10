@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\ui_files\object_list.ui'
+# Form implementation generated from reading ui file 'ui_files\object_list.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,11 +14,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ObjectList(object):
     def setupUi(self, ObjectList):
         ObjectList.setObjectName("ObjectList")
-        ObjectList.resize(520, 582)
+        ObjectList.resize(390, 464)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(ObjectList)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
         self.username_label = QtWidgets.QLabel(ObjectList)
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -60,8 +62,8 @@ class Ui_ObjectList(object):
         self.link_btn.setFlat(False)
         self.link_btn.setObjectName("link_btn")
         self.verticalLayout_3.addWidget(self.link_btn)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_3.addItem(spacerItem)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem1)
         self.horizontalLayout_6.addLayout(self.verticalLayout_3)
         self.object_list_widget = QtWidgets.QListWidget(ObjectList)
         font = QtGui.QFont()
@@ -71,6 +73,25 @@ class Ui_ObjectList(object):
         self.object_list_widget.setObjectName("object_list_widget")
         self.horizontalLayout_6.addWidget(self.object_list_widget)
         self.verticalLayout_4.addLayout(self.horizontalLayout_6)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem2)
+        self.add_button = QtWidgets.QPushButton(ObjectList)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        self.add_button.setFont(font)
+        self.add_button.setObjectName("add_button")
+        self.horizontalLayout_2.addWidget(self.add_button)
+        self.delete_button = QtWidgets.QPushButton(ObjectList)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        self.delete_button.setFont(font)
+        self.delete_button.setObjectName("delete_button")
+        self.horizontalLayout_2.addWidget(self.delete_button)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
 
         self.retranslateUi(ObjectList)
         QtCore.QMetaObject.connectSlotsByName(ObjectList)
@@ -82,6 +103,8 @@ class Ui_ObjectList(object):
         self.logout_button.setText(_translate("ObjectList", "Logout"))
         self.update_btn.setText(_translate("ObjectList", "Update"))
         self.link_btn.setText(_translate("ObjectList", "Link"))
+        self.add_button.setText(_translate("ObjectList", "Add"))
+        self.delete_button.setText(_translate("ObjectList", "Delete"))
 
 
 if __name__ == "__main__":
