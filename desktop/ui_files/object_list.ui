@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>520</width>
-    <height>595</height>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,19 @@
        </property>
        <property name="text">
         <string>123</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="logout_button">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Logout</string>
        </property>
       </widget>
      </item>

@@ -14,6 +14,9 @@ GET_OBJECT_DETAIL_URL = 'http://localhost:8000/objects/{id}'
 
 
 class ObjectsWindow(qtw.QWidget):
+
+    logout_signal = qtc.pyqtSignal()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -21,13 +24,14 @@ class ObjectsWindow(qtw.QWidget):
         self.ui.setupUi(self)
         self.ui.object_list_widget.itemDoubleClicked.connect(self.object_double_clicked)
         self.ui.update_btn.clicked.connect(self.update_object_list)
+        self.ui.logout_button.clicked.connect(self.logout)
         self.ui.link_btn.clicked.connect(self.link_object)
 
         self.username = ''
         self.access_token = ''
         self.refresh_token = ''
 
-        self.device_list = [cv2.VideoCapture(0, cv2.CAP_DSHOW)]
+        self.device_list = [cv2.VideoCapture(0)]
 
         self.object_list = ObjectList()
 
@@ -67,13 +71,15 @@ class ObjectsWindow(qtw.QWidget):
             )
         )
 
-    @qtc.pyqtSlot(str, str, str)
-    def login_message(self, username, access_token, refresh_token):
+    def set_login_data(self, username, access_token, refresh_token):
         self.username = username
         self.access_token = access_token
         self.refresh_token = refresh_token
         self.ui.username_label.setText(self.username)
-        # self.update_object_list()
+        self.update_object_list()
+
+    def logout(self):
+        self.logout_signal.emit()
 
 
 if __name__ == '__main__':
