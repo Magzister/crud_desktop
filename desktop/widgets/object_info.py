@@ -2,6 +2,12 @@ from pyuic5_files.object_info import Ui_ObjectInfo
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from .edit_object_info import EditObjectInfoWindow
+from models.object_list_model import ObjectList
+
+import requests
+
+
+ACCESS_LIST_URL = 'http://localhost:8000/accesses/{id}/'
 
 
 class ObjectInfoWindow(qtw.QWidget):
@@ -20,9 +26,12 @@ class ObjectInfoWindow(qtw.QWidget):
         self.object_description = None
         self.edit_object_info_widget = None
 
+        self.access_list = ObjectList()
+
         self.quit = qtw.QAction("Quit", self)
         self.quit.triggered.connect(self.closeEvent)
 
+        self.ui.update_button.clicked.connect(self.update_access_list)
         self.ui.change_button.clicked.connect(self.edit_object)
         self.ui.cancel_button.clicked.connect(self.close)
 
@@ -32,6 +41,7 @@ class ObjectInfoWindow(qtw.QWidget):
         self.object_description = object_dict['description']
         self.access_token = access_token
         self.update_labels()
+        self.update_access_list()
 
     def edit_object(self):
         self.edit_object_info_widget = EditObjectInfoWindow()
@@ -58,6 +68,27 @@ class ObjectInfoWindow(qtw.QWidget):
         if self.edit_object_info_widget:
             self.edit_object_info_widget.close()
         event.accept()
+
+    def update_access_list(self):
+        self.ui.access_list_widget.clear()
+        headers = {'Authorization': f'Bearer {self.access_token}'}
+        url = ACCESS_LIST_URL.format(
+            id=self.object_id
+        )
+        response = requests.get(url=url, headers=headers)
+        if response.status_code == 200:
+            access_list = response.json()
+            self.access_list.set_object_list(access_list)
+            for obj in access_list:
+                user = obj['user']
+                item = '{name} {surname} ({username})'
+                self.ui.access_list_widget.addItem(
+                    item.format(
+                        name=user['first_name'],
+                        surname=user['last_name'],
+                        username=user['username']
+                    )
+                )
 
 
 if __name__ == '__main__':
