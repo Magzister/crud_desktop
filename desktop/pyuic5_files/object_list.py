@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui_files\object_list.ui'
+# Form implementation generated from reading ui file '.\ui_files\object_list.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,11 +14,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ObjectList(object):
     def setupUi(self, ObjectList):
         ObjectList.setObjectName("ObjectList")
-        ObjectList.resize(390, 464)
+        ObjectList.resize(511, 464)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(ObjectList)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
+        self.invite_list_button = QtWidgets.QPushButton(ObjectList)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        self.invite_list_button.setFont(font)
+        self.invite_list_button.setObjectName("invite_list_button")
+        self.horizontalLayout.addWidget(self.invite_list_button)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.username_label = QtWidgets.QLabel(ObjectList)
@@ -99,6 +106,7 @@ class Ui_ObjectList(object):
     def retranslateUi(self, ObjectList):
         _translate = QtCore.QCoreApplication.translate
         ObjectList.setWindowTitle(_translate("ObjectList", "Objects"))
+        self.invite_list_button.setText(_translate("ObjectList", "Invites"))
         self.username_label.setText(_translate("ObjectList", "123"))
         self.logout_button.setText(_translate("ObjectList", "Logout"))
         self.update_btn.setText(_translate("ObjectList", "Update"))

@@ -2,6 +2,7 @@ from pyuic5_files.object_info import Ui_ObjectInfo
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from .edit_object_info import EditObjectInfoWindow
+from .user_list import UserListWindow
 from models.object_list_model import ObjectList
 
 import requests
@@ -25,12 +26,15 @@ class ObjectInfoWindow(qtw.QWidget):
         self.object_name = None
         self.object_description = None
         self.edit_object_info_widget = None
+        self.user_list = None
 
         self.access_list = ObjectList()
 
         self.quit = qtw.QAction("Quit", self)
         self.quit.triggered.connect(self.closeEvent)
 
+        self.ui.invite_button.clicked.connect(self.invite)
+        self.ui.delete_button.clicked.connect(self.delete_user_from_access_list)
         self.ui.update_button.clicked.connect(self.update_access_list)
         self.ui.change_button.clicked.connect(self.edit_object)
         self.ui.cancel_button.clicked.connect(self.close)
@@ -67,6 +71,8 @@ class ObjectInfoWindow(qtw.QWidget):
     def closeEvent(self, event):
         if self.edit_object_info_widget:
             self.edit_object_info_widget.close()
+        if self.user_list:
+            self.user_list.close()
         event.accept()
 
     def update_access_list(self):
@@ -89,6 +95,14 @@ class ObjectInfoWindow(qtw.QWidget):
                         username=user['username']
                     )
                 )
+
+    def delete_user_from_access_list(self):
+        pass
+
+    def invite(self):
+        self.user_list = UserListWindow()
+        self.user_list.set_object_info(self.object_id, self.access_token)
+        self.user_list.show()
 
 
 if __name__ == '__main__':

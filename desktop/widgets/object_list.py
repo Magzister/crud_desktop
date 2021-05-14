@@ -5,6 +5,7 @@ from models.object_list_model import ObjectList
 from models.device_process import DeviceProcess
 from .object_info import ObjectInfoWindow
 from .create_object import CreateObjectWindow
+from .invite_list import InviteListWindow
 
 import requests
 import threading
@@ -31,6 +32,7 @@ class ObjectsWindow(qtw.QWidget):
         self.ui.link_btn.clicked.connect(self.link_object)
         self.ui.delete_button.clicked.connect(self.delete_item)
         self.ui.add_button.clicked.connect(self.add_item)
+        self.ui.invite_list_button.clicked.connect(self.invite_list)
 
         self.quit = qtw.QAction("Quit", self)
         self.quit.triggered.connect(self.closeEvent)
@@ -40,6 +42,7 @@ class ObjectsWindow(qtw.QWidget):
         self.refresh_token = None
         self.object_info_widget = None
         self.create_object_window = None
+        self.invite_list_window = None
 
         self.device_list = [cv2.VideoCapture(0)]
 
@@ -90,6 +93,8 @@ class ObjectsWindow(qtw.QWidget):
             self.object_info_widget.close()
         if self.create_object_window:
             self.create_object_window.close()
+        if self.invite_list_window:
+            self.invite_list_window.close()
         event.accept()
 
     def delete_item(self):
@@ -111,6 +116,11 @@ class ObjectsWindow(qtw.QWidget):
         self.create_object_window.ok_signal.connect(self.update_object_list)
         self.create_object_window.set_token(self.access_token)
         self.create_object_window.show()
+
+    def invite_list(self):
+        self.invite_list_window = InviteListWindow()
+        self.invite_list_window.set_object_info(self.access_token)
+        self.invite_list_window.show()
 
 
 if __name__ == '__main__':
