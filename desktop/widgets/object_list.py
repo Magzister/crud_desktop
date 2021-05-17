@@ -44,7 +44,7 @@ class ObjectsWindow(qtw.QWidget):
         self.create_object_window = None
         self.invite_list_window = None
 
-        self.device_list = [cv2.VideoCapture(0)]
+        self.device_list = [cv2.VideoCapture(1)]
 
         self.object_list = ObjectList()
 
